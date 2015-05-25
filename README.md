@@ -1,2 +1,3 @@
-# si1-lab2
-Lab 2 de SI 1
+# Lab 2 da disciplina SI 1
+
+Esse repositório contém o código para o lab.
