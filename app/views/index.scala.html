@@ -1,14 +1,97 @@
+@(anuncios: List[Anuncio])
+
 <!DOCTYPE html>
 <html>
     <head lang="en">
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Gigs Radar</title>
+        <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.png")">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/index.css")"/>
     </head>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
-
     <body>
+        <div class="modal fade" id="formModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Anúncio</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <form action="@routes.Application.novoAnuncio()" method="POST">
+                            <div class="form-group">
+                                <label for="inputTitulo">Título</label>
+                                <input name="titulo" type="text" class="form-control" id="inputTitulo" placeholder="Meu anúncio" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputDescricao">Descrição</label>
+                                <textarea name="descricao" class="form-control" id="inputDescricao" placeholder="Meu anúncio é legal" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputCidade">Cidade</label>
+                                <input name="cidade" type="text" class="form-control" id="inputCidade" placeholder="Campina Grande" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputBairro">Bairro</label>
+                                <input name="bairro" type="text" class="form-control" id="inputBairro" placeholder="Centro" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputInstrumentos">Instrumentos que toco</label>
+                                <input name="instrumentos" type="text" class="form-control" id="inputInstrumentos" placeholder="Violão, Guitarra" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEstilos">Estilos que gosto</label>
+                                <input name="estilos" type="text" class="form-control" id="inputEstilos" placeholder="Blues, Jazz">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEstilosBanidos">Estilos que não gosto</label>
+                                <input name="estilosBanidos" type="text" class="form-control" id="inputEstilosBanidos" placeholder="Funk, Pagode">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputContatos">Contatos</label>
+                                <input name="contatos" type="text" class="form-control" id="inputContatos" placeholder="exemplo at gmail.com, facebook.com/exemplo"
+                                required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Interesse</label>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="interesse" id="inputContatos1" value="Banda" required>
+                                        Formar uma banda
+                                    </label>
+                                </div>
+
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="interesse" id="inputContatos2" value="Ocasionalmente" required>
+                                        Tocar ocasionalmente
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="container">
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
@@ -17,15 +100,33 @@
                     </div>
                     <div id="navbar">
                         <ul class="nav navbar-nav">
-                            <li><a href="#">Anunciar</a></li>
+                            <button type="button" class="btn btn-default navbar-btn" data-toggle="modal"
+                            data-target="#formModal">Anunciar</button>
                         </ul>
                     </div>
                 </div>
             </nav>
+
+            <div id="homeMessage">
+                <h1>Gigs Radar</h1>
+                <h3>Agora ficou bem mais fácil encontrar amigos para tocar com você!</h3>
+
+                <p>Navegue pelos anúncios ou crie o seu clicando no botão <strong>Anunciar</strong></p>
+            </div>
+
+            <hr>
+
+            <div id="anuncios">
+                @for(anuncio <- anuncios) {
+                    <h3>@anuncio.getTitulo</h3>
+                }
+            </div>
         </div>
 
         <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+        <script src="@routes.Assets.at("javascripts/index.js")"></script>
     </body>
 </html>

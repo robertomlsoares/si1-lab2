@@ -1,0 +1,11 @@
+#homeMessage {
+    text-align: center;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button:focus {
+    outline: none !important;
+}
