@@ -118,7 +118,18 @@
 
             <div id="anuncios">
                 @for(anuncio <- anuncios) {
-                    <h3>@anuncio.getTitulo</h3>
+                    <div class="anuncio">
+                        <h2 class="anuncioTitulo">@anuncio.getTitulo()</h2>
+                        <h3>@anuncio.getDescricao()</h3>
+
+                        <p><strong>Cidade:</strong> @anuncio.getCidade()</p>
+                        <p><strong>Bairro:</strong> @anuncio.getBairro()</p>
+                        <p><strong>Instrumentos:</strong> @anuncio.getInstrumentos()</p>
+                        <p><strong>Estilos que gosta:</strong> @anuncio.getEstilos()</p>
+                        <p><strong>Estilos que não gosta:</strong> @anuncio.getEstilosBanidos()</p>
+                        <p><strong>Contatos:</strong> @anuncio.getContatos()</p>
+                        <p><strong>Interesse:</strong> @anuncio.getInteresse()</p>
+                    </div>
                 }
             </div>
         </div>

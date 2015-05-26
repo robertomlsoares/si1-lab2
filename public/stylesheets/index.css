@@ -2,10 +2,34 @@
     text-align: center;
 }
 
+.anuncioTitulo {
+    font-weight: bold;
+    text-align: center;
+}
+
+.anuncio {
+    border: 1px solid darkgrey;
+    width: 360px;
+    float: left;
+    margin: 10px;
+    text-align: justify;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.container {
+    background-color: #F8F8F8;
+}
+
 textarea {
     resize: vertical;
 }
 
 button:focus {
     outline: none !important;
+}
+
+body {
+    background: url("../images/background.png") repeat;
+    color: #5E5E5E;
 }
