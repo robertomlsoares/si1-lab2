@@ -7,6 +7,11 @@
     margin: 0 auto;
 }
 
+#barraBusca p {
+    width: 300px;
+    margin: 0 auto;
+}
+
 .anuncioTitulo {
     font-weight: bold;
     text-align: center;
