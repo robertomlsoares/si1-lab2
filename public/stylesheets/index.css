@@ -2,6 +2,11 @@
     text-align: center;
 }
 
+#barraBusca {
+    width: 800px;
+    margin: 0 auto;
+}
+
 .anuncioTitulo {
     font-weight: bold;
     text-align: center;
@@ -17,19 +22,10 @@
     border-radius: 10px;
 }
 
-.container {
-    background-color: #F8F8F8;
-}
-
 textarea {
     resize: vertical;
 }
 
 button:focus {
     outline: none !important;
-}
-
-body {
-    background: url("../images/background.png") repeat;
-    color: #5E5E5E;
 }

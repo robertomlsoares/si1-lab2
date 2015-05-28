@@ -9,6 +9,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Application extends Controller {
@@ -23,6 +24,7 @@ public class Application extends Controller {
     @Transactional
     public static Result anuncios() {
         List<Anuncio> resultado = DAO.findAllByClass(Anuncio.class);
+        Collections.sort(resultado);
 
         return ok(index.render(resultado));
     }
@@ -33,6 +35,7 @@ public class Application extends Controller {
 
         if (formPreenchido.hasErrors()) {
             List<Anuncio> resultado = DAO.findAllByClass(Anuncio.class);
+            Collections.sort(resultado);
 
             return badRequest(index.render(resultado));
         } else {

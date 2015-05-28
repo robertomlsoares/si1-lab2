@@ -1,12 +1,10 @@
 package models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-public class Anuncio {
+public class Anuncio implements Comparable<Anuncio> {
 
     @Id
     @GeneratedValue
@@ -32,12 +30,13 @@ public class Anuncio {
 
     @Column
     private String estilosBanidos;
-
     @Column
     private String contatos;
-
     @Column
     private String interesse;
+
+    @Temporal(TemporalType.DATE)
+    private Date data = new Date();
 
     public Anuncio() {
     }
@@ -55,6 +54,14 @@ public class Anuncio {
         this.estilosBanidos = estilosBanidos;
         this.contatos = contatos;
         this.interesse = interesse;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
     }
 
     public Long getId() {
@@ -160,5 +167,18 @@ public class Anuncio {
 
     public void setInteresse(String interesse) {
         this.interesse = interesse;
+    }
+
+    public boolean isEstilosEmpty() {
+        return this.estilos.length() == 0;
+    }
+
+    public boolean isEstilosBanidosEmpty() {
+        return this.estilosBanidos.length() == 0;
+    }
+
+    @Override
+    public int compareTo(Anuncio o) {
+        return getData().compareTo(o.getData()) * (-1);
     }
 }
