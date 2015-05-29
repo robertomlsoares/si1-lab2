@@ -12,9 +12,24 @@
     margin: 0 auto;
 }
 
+#erroAlerta {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .anuncioTitulo {
     font-weight: bold;
     text-align: center;
+}
+
+.finalizarAnuncio {
+    text-decoration: none !important;
+    color: green;
+}
+
+.finalizarAnuncio:hover {
+    color: green;
 }
 
 .anuncio {

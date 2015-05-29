@@ -15,6 +15,7 @@ public class AnuncioTest {
     private String estilos1;
     private String estilosBanidos1;
     private String contatos1;
+    private String codigo1;
     private String interesse1;
 
     @Before
@@ -27,13 +28,14 @@ public class AnuncioTest {
         estilos1 = "Rock, Jazz, Blues";
         estilosBanidos1 = "Pagode, Funk";
         contatos1 = "teste@gmail.com";
+        codigo1 = "codigoteste";
         interesse1 = "Formar Banda";
     }
 
     @Test
     public void deveCriarAnuncioSemErros() {
         try {
-            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1,
+            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
                     interesse1);
         } catch (Exception e) {
             fail("Não deveria lançar exceção.");
@@ -45,14 +47,14 @@ public class AnuncioTest {
         titulo1 = "";
 
         try {
-            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1,
+            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
                     interesse1);
             fail("Deveria lançar exceção.");
         } catch (Exception e) {
         }
 
         try {
-            new Anuncio(null, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1,
+            new Anuncio(null, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
                     interesse1);
             fail("Deveria lançar exceção.");
         } catch (Exception e) {
@@ -64,14 +66,14 @@ public class AnuncioTest {
         descricao1 = "";
 
         try {
-            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1,
+            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
                     interesse1);
             fail("Deveria lançar exceção.");
         } catch (Exception e) {
         }
 
         try {
-            new Anuncio(titulo1, null, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1,
+            new Anuncio(titulo1, null, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
                     interesse1);
             fail("Deveria lançar exceção.");
         } catch (Exception e) {
@@ -83,14 +85,14 @@ public class AnuncioTest {
         cidade1 = "";
 
         try {
-            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1,
+            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
                     interesse1);
             fail("Deveria lançar exceção.");
         } catch (Exception e) {
         }
 
         try {
-            new Anuncio(titulo1, descricao1, null, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1,
+            new Anuncio(titulo1, descricao1, null, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
                     interesse1);
             fail("Deveria lançar exceção.");
         } catch (Exception e) {
@@ -102,14 +104,14 @@ public class AnuncioTest {
         bairro1 = "";
 
         try {
-            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1,
+            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
                     interesse1);
             fail("Deveria lançar exceção.");
         } catch (Exception e) {
         }
 
         try {
-            new Anuncio(titulo1, descricao1, cidade1, null, instrumentos1, estilos1, estilosBanidos1, contatos1,
+            new Anuncio(titulo1, descricao1, cidade1, null, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
                     interesse1);
             fail("Deveria lançar exceção.");
         } catch (Exception e) {
@@ -121,14 +123,14 @@ public class AnuncioTest {
         instrumentos1 = "";
 
         try {
-            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1,
+            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
                     interesse1);
             fail("Deveria lançar exceção.");
         } catch (Exception e) {
         }
 
         try {
-            new Anuncio(titulo1, descricao1, cidade1, bairro1, null, estilos1, estilosBanidos1, contatos1,
+            new Anuncio(titulo1, descricao1, cidade1, bairro1, null, estilos1, estilosBanidos1, contatos1, codigo1,
                     interesse1);
             fail("Deveria lançar exceção.");
         } catch (Exception e) {
@@ -141,14 +143,14 @@ public class AnuncioTest {
         estilosBanidos1 = "";
 
         try {
-            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1,
+            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
                     interesse1);
         } catch (Exception e) {
             fail("Não deveria lançar exceção.");
         }
 
         try {
-            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, null, null, contatos1,
+            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, null, null, contatos1, codigo1,
                     interesse1);
         } catch (Exception e) {
             fail("Não deveria lançar exceção.");
@@ -160,14 +162,33 @@ public class AnuncioTest {
         contatos1 = "";
 
         try {
-            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1,
+            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
                     interesse1);
             fail("Deveria lançar exceção.");
         } catch (Exception e) {
         }
 
         try {
-            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, null,
+            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, null, codigo1,
+                    interesse1);
+            fail("Deveria lançar exceção.");
+        } catch (Exception e) {
+        }
+    }
+
+    @Test
+    public void naoDeveCriarAnuncioSemCodigo() {
+        codigo1 = "";
+
+        try {
+            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
+                    interesse1);
+            fail("Deveria lançar exceção.");
+        } catch (Exception e) {
+        }
+
+        try {
+            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, null,
                     interesse1);
             fail("Deveria lançar exceção.");
         } catch (Exception e) {
@@ -179,14 +200,14 @@ public class AnuncioTest {
         interesse1 = "";
 
         try {
-            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1,
+            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
                     interesse1);
             fail("Deveria lançar exceção.");
         } catch (Exception e) {
         }
 
         try {
-            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1,
+            new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
                     null);
             fail("Deveria lançar exceção.");
         } catch (Exception e) {

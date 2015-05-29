@@ -30,10 +30,18 @@ public class Anuncio implements Comparable<Anuncio> {
 
     @Column
     private String estilosBanidos;
+
     @Column
     private String contatos;
+
     @Column
     private String interesse;
+
+    @Column
+    private String codigo;
+
+    @Column
+    private boolean finalizado;
 
     @Temporal(TemporalType.DATE)
     private Date data = new Date();
@@ -42,8 +50,8 @@ public class Anuncio implements Comparable<Anuncio> {
     }
 
     public Anuncio(String titulo, String descricao, String cidade, String bairro, String instrumentos, String
-            estilos, String estilosBanidos, String contatos, String interesse) throws Exception {
-        validaParametros(titulo, descricao, cidade, bairro, instrumentos, contatos, interesse);
+            estilos, String estilosBanidos, String contatos, String codigo, String interesse) throws Exception {
+        validaParametros(titulo, descricao, cidade, bairro, instrumentos, contatos, codigo, interesse);
 
         this.titulo = titulo;
         this.descricao = descricao;
@@ -53,7 +61,25 @@ public class Anuncio implements Comparable<Anuncio> {
         this.estilos = estilos;
         this.estilosBanidos = estilosBanidos;
         this.contatos = contatos;
+        this.codigo = codigo;
         this.interesse = interesse;
+        this.finalizado = false;
+    }
+
+    public boolean isFinalizado() {
+        return finalizado;
+    }
+
+    public void setFinalizado(boolean finalizado) {
+        this.finalizado = finalizado;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public Date getData() {
@@ -73,7 +99,7 @@ public class Anuncio implements Comparable<Anuncio> {
     }
 
     private void validaParametros(String titulo, String descricao, String cidade, String bairro, String instrumentos,
-                                  String contatos, String interesse) throws Exception {
+                                  String contatos, String codigo, String interesse) throws Exception {
         if (titulo == null || titulo.trim() == "") {
             throw new Exception("Não se pode criar um anúncio sem título.");
         }
@@ -91,6 +117,9 @@ public class Anuncio implements Comparable<Anuncio> {
         }
         if (contatos == null || contatos.trim() == "") {
             throw new Exception("Não se pode criar um anúncio sem contatos.");
+        }
+        if (codigo == null || codigo.trim() == "") {
+            throw new Exception("Não se pode criar um anúncio sem código.");
         }
         if (interesse == null || interesse.trim() == "") {
             throw new Exception("Não se pode criar um anúncio sem interesse.");

@@ -15,6 +15,8 @@ import java.util.List;
 public class Application extends Controller {
     private static final GenericDAO DAO = new GenericDAO();
     private static Form<Anuncio> form = Form.form(Anuncio.class);
+    private static Form<String> formFinalizar = Form.form(String.class);
+    private static int anunciosFinalizados = 0;
 
     @Transactional
     public static Result index() {
@@ -26,7 +28,7 @@ public class Application extends Controller {
         List<Anuncio> resultado = DAO.findAllByClass(Anuncio.class);
         Collections.sort(resultado);
 
-        return ok(index.render(resultado));
+        return ok(index.render(resultado, false, anunciosFinalizados));
     }
 
     @Transactional
@@ -37,15 +39,33 @@ public class Application extends Controller {
             List<Anuncio> resultado = DAO.findAllByClass(Anuncio.class);
             Collections.sort(resultado);
 
-            return badRequest(index.render(resultado));
+            return badRequest(index.render(resultado, false, anunciosFinalizados));
         } else {
             Anuncio newAnuncio = formPreenchido.get();
-            Logger.debug(formPreenchido.data().toString());
 
             DAO.persist(newAnuncio);
             DAO.flush();
 
             return anuncios();
+        }
+    }
+
+    @Transactional
+    public static Result finalizaAnuncio(String codigo, Long id) {
+        Form<String> formFinalizarPreenchido = formFinalizar.bindFromRequest();
+        String codigoForm = formFinalizarPreenchido.data().get("finalizar");
+
+        if (codigoForm.equals(codigo)) {
+            DAO.removeById(Anuncio.class, id);
+            DAO.flush();
+
+            anunciosFinalizados++;
+            return anuncios();
+        } else {
+            List<Anuncio> resultado = DAO.findAllByClass(Anuncio.class);
+            Collections.sort(resultado);
+
+            return ok(index.render(resultado, true, anunciosFinalizados));
         }
     }
 

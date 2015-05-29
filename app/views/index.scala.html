@@ -1,4 +1,4 @@
-@(anuncios: List[Anuncio])
+@(anuncios: List[Anuncio])(erro: Boolean)(finalizados: Integer)
 
 <!DOCTYPE html>
 <html>
@@ -65,6 +65,11 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="inputCodigo">Código</label>
+                                <input name="codigo" type="text" class="form-control" id="inputCodigo" placeholder="meucodigosecreto" required pattern=".*\S+.*">
+                            </div>
+
+                            <div class="form-group">
                                 <label>Interesse</label>
                                 <div class="radio">
                                     <label>
@@ -84,10 +89,6 @@
                             <button type="submit" class="btn btn-primary">Enviar</button>
                         </form>
                     </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -96,7 +97,7 @@
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="#">Gigs Radar</a>
+                        <a class="navbar-brand" href="/">Gigs Radar</a>
                     </div>
                     <div id="navbar">
                         <ul class="nav navbar-nav">
@@ -108,13 +109,20 @@
             </nav>
 
             <div id="homeMessage">
-                <h1>Gigs Radar</h1>
+                <h1>Gigs Radar - @finalizados gig(s) formada(s)</h1>
                 <h3>Agora ficou bem mais fácil encontrar amigos para tocar com você!</h3>
 
                 <p>Navegue pelos anúncios ou crie o seu clicando no botão <strong>Anunciar</strong></p>
             </div>
 
             <hr>
+
+            @if(erro) {
+                <div id="erroAlerta" class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    O código que você inseriu está incorreto.
+                </div>
+            }
 
             <div id="barraBusca">
                 <p>Separe os termos da busca com vírgulas.</p>
@@ -157,6 +165,29 @@
 
                     <p><strong>Contatos:</strong> @anuncio.getContatos()</p>
                     <p class="anuncioInteresse"><strong>Interesse:</strong> @anuncio.getInteresse()</p>
+
+                    <a data-toggle="modal" data-target="#finalizarModal" class="finalizarAnuncio" href="">Finalizar</a>
+                </div>
+
+                <div class="modal fade" id="finalizarModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Insira o código do seu anúncio</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <form action="@routes.Application.finalizaAnuncio(anuncio.getCodigo(), anuncio.getId())" method="POST">
+                                    <div class="form-group">
+                                        <input name="finalizar" type="text" class="form-control" id="inputFinalizar" placeholder="Código do seu anúncio" required pattern=".*\S+.*">
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             }
             </div>
