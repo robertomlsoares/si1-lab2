@@ -1,17 +1,17 @@
 @(anuncios: List[Anuncio])(erro: Boolean)(finalizados: Integer)
 
 <!DOCTYPE html>
-<html>
-    <head lang="en">
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="content-type" content="text/html">
         <title>Gigs Radar</title>
-        <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.png")">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+        <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.png")">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/index.css")"/>
     </head>
-
     <body>
         <div class="modal fade" id="formModal">
             <div class="modal-dialog">
@@ -93,30 +93,64 @@
             </div>
         </div>
 
-        <div class="container">
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="/">Gigs Radar</a>
-                    </div>
-                    <div id="navbar">
-                        <ul class="nav navbar-nav">
-                            <button type="button" class="btn btn-default navbar-btn" data-toggle="modal"
-                            data-target="#formModal">Anunciar</button>
-                        </ul>
-                    </div>
+        <nav class="navbar navbar-fixed-top header">
+            <div class="col-md-12">
+                <div class="navbar-header">
+
+                    <a href="/" class="navbar-brand">Gigs Radar</a>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse1">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+
                 </div>
-            </nav>
+                <div class="collapse navbar-collapse" id="navbar-collapse1">
+                    <form class="navbar-form pull-left">
+                        <div class="input-group" style="max-width: 470px">
+                            <input id="busca" title="Separe os termos com vírgulas." type="text" class="form-control" placeholder="Guitarra, Blues, Gaita de Fole"
+                            name="srch-term"
+                            id="srch-term">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
 
-            <div id="homeMessage">
-                <h1>Gigs Radar - @finalizados gig(s) formada(s)</h1>
-                <h3>Agora ficou bem mais fácil encontrar amigos para tocar com você!</h3>
+                            <span class="input-group-addon buscaFiltro">
+                                <input id="checkInstrumentos" type="checkbox" aria-label="...">
+                                Instrumentos
+                            </span>
 
-                <p>Navegue pelos anúncios ou crie o seu clicando no botão <strong>Anunciar</strong></p>
+                            <span class="input-group-addon buscaFiltro">
+                                <input id="checkEstilos" type="checkbox" aria-label="...">
+                                Estilos preferidos
+                            </span>
+
+                            <span class="input-group-addon buscaFiltro">
+                                <input id="checkInteresse" type="checkbox" aria-label="...">
+                                Interesse
+                            </span>
+                        </div>
+                    </form>
+                </div>
             </div>
+        </nav>
 
-            <hr>
+        <div class="navbar navbar-default" id="subnav">
+            <div class="col-md-12">
+                <div class="navbar-header">
 
+                    <a style="margin-left: 15px" class="navbar-btn btn btn-default btn-plus" data-toggle="modal"
+                    data-target="#formModal"><i class="glyphicon glyphicon-plus" style="color: #dd1111"></i>
+                        Anunciar </a>
+
+                </div>
+
+                <div class="nav-center">
+                    <h4>Gigs Radar - @finalizados gig(s) formada(s)</h4>
+                </div>
+            </div>
+        </div>
+
+            <!--main-->
+        <div class="container" id="main">
             @if(erro) {
                 <div id="erroAlerta" class="alert alert-danger alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -124,49 +158,43 @@
                 </div>
             }
 
-            <div id="barraBusca">
-                <p>Separe os termos da busca com vírgulas.</p>
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <input id="checkInstrumentos" type="checkbox" aria-label="...">
-                        Instrumentos
-                    </span>
+            <div id="anuncios" class="row">
 
-                    <span class="input-group-addon">
-                        <input id="checkEstilos" type="checkbox" aria-label="...">
-                        Estilos preferidos
-                    </span>
-
-                    <span class="input-group-addon">
-                        <input id="checkInteresse" type="checkbox" aria-label="...">
-                        Interesse
-                    </span>
-
-                    <input id="busca" type="text" class="form-control" aria-label="..." placeholder="Guitarra, Blues, Gaita de Fole, Banda">
-                </div>
-            </div>
-
-            <div id="anuncios">
             @for(anuncio <- anuncios) {
-                <div class="anuncio">
-                    <h2 class="anuncioTitulo">@anuncio.getTitulo()</h2>
-                    <h3>@anuncio.getDescricao()</h3>
+                <div class="col-md-4 col-sm-6 anuncio">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><a href="" data-toggle="modal" data-target="#finalizarModal" class="pull-right finalizarAnuncio">Finalizar</a> <h4
+                        class="anuncioTitulo">@anuncio.getTitulo()</h4></div>
+                        <div class="panel-body">
+                            <p>@anuncio.getDescricao()</p>
+                            <div class="clearfix"></div>
+                            <hr>
 
-                    <p><strong>Cidade:</strong> @anuncio.getCidade()</p>
-                    <p><strong>Bairro:</strong> @anuncio.getBairro()</p>
+                            <p><strong>Cidade:</strong> @anuncio.getCidade()</p>
+                            <p><strong>Bairro:</strong> @anuncio.getBairro()</p>
 
-                    <p class="anuncioInstrumentos"><strong>Instrumentos:</strong> @anuncio.getInstrumentos()</p>
-                    @if(!anuncio.isEstilosEmpty) {
-                        <p class="anuncioEstilos"><strong>Estilos que gosta:</strong> @anuncio.getEstilos()</p>
-                    }
-                    @if(!anuncio.isEstilosBanidosEmpty) {
-                        <p><strong>Estilos que não gosta:</strong> @anuncio.getEstilosBanidos()</p>
-                    }
+                            <p class="anuncioInstrumentos"><strong>Instrumentos:</strong> @anuncio.getInstrumentos()</p>
+                            @if(!anuncio.isEstilosEmpty) {
+                                <p class="anuncioEstilos"><strong>Estilos que gosta:</strong> @anuncio.getEstilos()</p>
+                            }
+                            @if(!anuncio.isEstilosBanidosEmpty) {
+                                <p><strong>Estilos que não gosta:</strong> @anuncio.getEstilosBanidos()</p>
+                            }
 
-                    <p><strong>Contatos:</strong> @anuncio.getContatos()</p>
-                    <p class="anuncioInteresse"><strong>Interesse:</strong> @anuncio.getInteresse()</p>
+                            <p><strong>Contatos:</strong> @anuncio.getContatos()</p>
+                            <p class="anuncioInteresse"><strong>Interesse:</strong> @anuncio.getInteresse()</p>
 
-                    <a data-toggle="modal" data-target="#finalizarModal" class="finalizarAnuncio" href="">Finalizar</a>
+                            <hr>
+
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Faça uma pergunta">
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal fade" id="finalizarModal">
@@ -190,9 +218,11 @@
                     </div>
                 </div>
             }
+
             </div>
         </div>
 
+            <!-- Scripts -->
         <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
