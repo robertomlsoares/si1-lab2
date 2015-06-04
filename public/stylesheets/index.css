@@ -9,6 +9,15 @@
     text-align: center;
 }
 
+.pergunta {
+    font-weight: bold;
+}
+
+.resposta {
+    text-align: right;
+    word-wrap: break-word;
+}
+
 #erroAlerta {
     width: 400px;
     margin-left: auto;

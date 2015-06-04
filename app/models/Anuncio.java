@@ -1,7 +1,9 @@
 package models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Anuncio implements Comparable<Anuncio> {
@@ -43,10 +45,14 @@ public class Anuncio implements Comparable<Anuncio> {
     @Column
     private boolean finalizado;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Conversa> conversas;
+
     @Temporal(TemporalType.DATE)
     private Date data = new Date();
 
     public Anuncio() {
+        this.conversas = new ArrayList<>();
     }
 
     public Anuncio(String titulo, String descricao, String cidade, String bairro, String instrumentos, String
@@ -64,6 +70,15 @@ public class Anuncio implements Comparable<Anuncio> {
         this.codigo = codigo;
         this.interesse = interesse;
         this.finalizado = false;
+        this.conversas = new ArrayList<>();
+    }
+
+    public List<Conversa> getConversas() {
+        return conversas;
+    }
+
+    public void setConversas(List<Conversa> conversas) {
+        this.conversas = conversas;
     }
 
     public boolean isFinalizado() {
@@ -204,6 +219,31 @@ public class Anuncio implements Comparable<Anuncio> {
 
     public boolean isEstilosBanidosEmpty() {
         return this.estilosBanidos.length() == 0;
+    }
+
+    public void fazerPergunta(String pergunta) {
+        try {
+            conversas.add(new Conversa(pergunta));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void responderPergunta(Long idConversa, String resposta, String codigo) throws Exception {
+        if (!codigo.equals(this.codigo)) {
+            throw new Exception("Somente quem tem o código do anúncio pode responder perguntas.");
+        }
+
+        for (Conversa conversa : conversas) {
+            if (conversa.getId().equals(idConversa)) {
+                try {
+                    conversa.setResposta(resposta);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
     }
 
     @Override

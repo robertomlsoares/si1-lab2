@@ -163,7 +163,8 @@
             @for(anuncio <- anuncios) {
                 <div class="col-md-4 col-sm-6 anuncio">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><a href="" data-toggle="modal" data-target="#finalizarModal" class="pull-right finalizarAnuncio">Finalizar</a> <h4
+                        <div class="panel-heading"><a href="" data-toggle="modal" data-target="#finalizarModal@anuncio.getId()" class="pull-right
+                        finalizarAnuncio">Finalizar</a> <h4
                         class="anuncioTitulo">@anuncio.getTitulo()</h4></div>
                         <div class="panel-body">
                             <p>@anuncio.getDescricao()</p>
@@ -186,18 +187,71 @@
 
                             <hr>
 
-                            <div class="input-group">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+                            <form action="@routes.Application.fazerPergunta(anuncio.getId())" method="POST">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+                                    </div>
+                                    <input name="pergunta" type="text" class="form-control" placeholder="Faça uma pergunta" required pattern=".*\S+.*">
                                 </div>
-                                <input type="text" class="form-control" placeholder="Faça uma pergunta">
-                            </div>
+                            </form>
+
+                            <hr>
+
+                            @for(conversa <- anuncio.getConversas()) {
+                                @if(conversa.getPergunta() != null) {
+                                    <div class="pergunta">
+                                        <p>@conversa.getPergunta()</p>
+                                    </div>
+
+                                    @if(conversa.getResposta == null) {
+                                        <a href="" data-toggle="modal" data-target="#responderModal@conversa.getId()" class="finalizarAnuncio">Responder</a>
+
+                                        <div class="modal fade" id="responderModal@conversa.getId()">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title">Resposta</h4>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <form action="@routes.Application.responderPergunta(conversa.getId(), anuncio.getId())" method="POST">
+                                                            <div class="form-group">
+                                                                <label for="inputCodigo">Código</label>
+                                                                <input name="codigo" type="text" class="form-control" id="inputCodigo" placeholder="Código do seu anúncio"
+                                                                required pattern=".*\S+.*">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>Resposta</label>
+                                                                <input name="resposta" type="text" class="form-control" id="inputResposta" placeholder="Sua resposta"
+                                                                required pattern=".*\S+.*">
+                                                            </div>
+
+                                                            <button type="submit" class="btn btn-primary">Enviar</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+
+                                @if(conversa.getResposta != null) {
+                                    <div class="resposta">
+                                        <p>@conversa.getResposta()</p>
+                                    </div>
+                                }
+
+                                <hr>
+                                }
 
                         </div>
                     </div>
                 </div>
 
-                <div class="modal fade" id="finalizarModal">
+                <div class="modal fade" id="finalizarModal@anuncio.getId()">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">

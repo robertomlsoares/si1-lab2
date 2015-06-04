@@ -3,6 +3,7 @@ package models;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class AnuncioTest {
@@ -18,8 +19,10 @@ public class AnuncioTest {
     private String codigo1;
     private String interesse1;
 
+    private Anuncio anuncio1;
+
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         titulo1 = "Título1";
         descricao1 = "Descrição de teste";
         cidade1 = "Campina Grande";
@@ -30,6 +33,9 @@ public class AnuncioTest {
         contatos1 = "teste@gmail.com";
         codigo1 = "codigoteste";
         interesse1 = "Formar Banda";
+
+        anuncio1 = new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
+                interesse1);
     }
 
     @Test
@@ -210,6 +216,20 @@ public class AnuncioTest {
             new Anuncio(titulo1, descricao1, cidade1, bairro1, instrumentos1, estilos1, estilosBanidos1, contatos1, codigo1,
                     null);
             fail("Deveria lançar exceção.");
+        } catch (Exception e) {
+        }
+    }
+
+    @Test
+    public void naoDeveCriarRespostaComCodigoErrado() {
+        anuncio1.fazerPergunta("Pergunta de teste.");
+        assertEquals(anuncio1.getConversas().size(), 1);
+
+        Long idConversa = anuncio1.getConversas().get(0).getId();
+
+        try {
+            anuncio1.responderPergunta(idConversa, "Resposta de teste", "codigo errado");
+            fail("Deveria lança exceção.");
         } catch (Exception e) {
         }
     }
