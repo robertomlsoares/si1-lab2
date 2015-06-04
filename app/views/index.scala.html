@@ -105,7 +105,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse1">
                     <form class="navbar-form pull-left">
-                        <div class="input-group" style="max-width: 470px">
+                        <div class="input-group" style="max-width : 470 px">
                             <input id="busca" title="Separe os termos com vírgulas." type="text" class="form-control" placeholder="Guitarra, Blues, Gaita de Fole"
                             name="srch-term"
                             id="srch-term">
@@ -137,8 +137,8 @@
             <div class="col-md-12">
                 <div class="navbar-header">
 
-                    <a style="margin-left: 15px" class="navbar-btn btn btn-default btn-plus" data-toggle="modal"
-                    data-target="#formModal"><i class="glyphicon glyphicon-plus" style="color: #dd1111"></i>
+                    <a style="margin-left : 15 px" class="navbar-btn btn btn-default btn-plus" data-toggle="modal"
+                    data-target="#formModal"><i class="glyphicon glyphicon-plus" style="color : #dd1111"></i>
                         Anunciar </a>
 
                 </div>
@@ -209,6 +209,23 @@
                                 <form action="@routes.Application.finalizaAnuncio(anuncio.getCodigo(), anuncio.getId())" method="POST">
                                     <div class="form-group">
                                         <input name="finalizar" type="text" class="form-control" id="inputFinalizar" placeholder="Código do seu anúncio" required pattern=".*\S+.*">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Você encontrou os parceiros que procurava?</label>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="encontrouParceiros" id="inputEncontrou1" value="Sim" required>
+                                                Sim
+                                            </label>
+                                        </div>
+
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="encontrouParceiros" id="inputEncontrou2" value="Não" required>
+                                                Não
+                                            </label>
+                                        </div>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Enviar</button>

@@ -16,7 +16,7 @@ public class Application extends Controller {
     private static final GenericDAO DAO = new GenericDAO();
     private static Form<Anuncio> form = Form.form(Anuncio.class);
     private static Form<String> formFinalizar = Form.form(String.class);
-    private static int anunciosFinalizados = 0;
+    private static int anunciosFinalizados = 15;
 
     @Transactional
     public static Result index() {
@@ -54,12 +54,16 @@ public class Application extends Controller {
     public static Result finalizaAnuncio(String codigo, Long id) {
         Form<String> formFinalizarPreenchido = formFinalizar.bindFromRequest();
         String codigoForm = formFinalizarPreenchido.data().get("finalizar");
+        String encontrouParceiros = formFinalizarPreenchido.data().get("encontrouParceiros");
 
         if (codigoForm.equals(codigo)) {
             DAO.removeById(Anuncio.class, id);
             DAO.flush();
 
-            anunciosFinalizados++;
+            if (encontrouParceiros.equals("Sim")) {
+                anunciosFinalizados++;
+            }
+
             return anuncios();
         } else {
             List<Anuncio> resultado = DAO.findAllByClass(Anuncio.class);
