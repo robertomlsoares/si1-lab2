@@ -248,6 +248,6 @@ public class Anuncio implements Comparable<Anuncio> {
 
     @Override
     public int compareTo(Anuncio o) {
-        return getData().compareTo(o.getData()) * (-1);
+        return getId().compareTo(o.getId()) * (-1);
     }
 }
