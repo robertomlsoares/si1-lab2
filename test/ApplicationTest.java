@@ -91,8 +91,8 @@ public class ApplicationTest {
         FakeRequest fakeRequest = new FakeRequest().withFormUrlEncodedBody(requestMap);
         Result resultPost = callAction(controllers.routes.ref.Application.finalizaAnuncio("teste1", anuncioTest.getId()), fakeRequest);
         assertThat(status(resultPost)).isEqualTo(OK);
-        assertThat(contentAsString(resultPost)).contains("16 gig(s)");
-        assertThat(contentAsString(resultPost)).doesNotContain("Título: Teste 1");
+        assertThat(contentAsString(resultPost)).contains("<h4>Gigs Radar - 16 gig(s) formada(s)</h4>");
+        assertThat(contentAsString(resultPost)).doesNotContain("<h4 class='anuncioTitulo'>Teste 1</h4>");
     }
 
     @Test
