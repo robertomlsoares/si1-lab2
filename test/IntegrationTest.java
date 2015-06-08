@@ -22,9 +22,7 @@ public class IntegrationTest extends WithBrowser {
     public void deveCarregarPaginaPrincipal() {
         browser.goTo("http://localhost:" + testServer.port());
         assertThat(browser.pageSource()).contains("Gigs Radar");
-        assertThat(browser.pageSource()).contains("Gigs Radar - 16 gig(s) formada(s)"); // 16 porque o ApplicationTest é executado antes desse e tem esse
-        // efeito colateral (tentar ajeitar
-        // isso)
+        assertThat(browser.pageSource()).contains("Gigs Radar - 15 gig(s) formada(s)");
     }
 
     @Test
@@ -64,4 +62,23 @@ public class IntegrationTest extends WithBrowser {
         assertThat(browser.pageSource()).doesNotContain("Testando pelo código");
     }
 
+    @Test
+    public void deveFazerPerguntaEResposta() {
+        deveAdicionarAnuncio();
+
+        browser.goTo("http://localhost:" + testServer.port());
+        assertThat(browser.pageSource()).contains("Testando pelo código");
+        assertThat(browser.pageSource()).doesNotContain("Testando pergunta pelo código");
+
+        browser.fill("#formFazerPergunta26").with("Testando pergunta pelo código");
+        browser.click("#submitFormFazerPergunta26");
+        assertThat(browser.pageSource()).contains("Testando pergunta pelo código");
+        assertThat(browser.pageSource()).doesNotContain("Testando resposta pelo código");
+
+        browser.click("#botaoResponderPergunta26");
+        browser.fill("#inputCodigo").with("testando123");
+        browser.fill("#inputResposta").with("Testando resposta pelo código");
+        browser.click("#submitResponderPergunta");
+        assertThat(browser.pageSource()).contains("Testando resposta pelo código");
+    }
 }
